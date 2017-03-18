@@ -107,19 +107,17 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
 // Sets the URL of the given img element with the URL of the image stored in Cloud Storage.
 FriendlyChat.prototype.setImageUrl = function(imageUri, imgElement) {
-	
-	// TODO(DEVELOPER): If image is on Cloud Storage, fetch image URL and set img element's src.
-	// if the image is a cloud storage URI we fetch the URL.
-	
-	if (imageUri.startsWith('gs://')) {
-		imgElement.src = FriendlyChat.LOADING_IMAGE_URL; // display a loading image first.
-		this.storage.refFromURL(imageUri).getMetadata().then(function(metadata) {
-			imgElement.src = metadata.downloadURLs[0];
-		});
-	} else {
-		imgElement.src = imageUri;
-	}  
+  // If the image is a Cloud Storage URI we fetch the URL.
+  if (imageUri.startsWith('gs://')) {
+    imgElement.src = FriendlyChat.LOADING_IMAGE_URL; // Display a loading image first.
+    this.storage.refFromURL(imageUri).getMetadata().then(function(metadata) {
+      imgElement.src = metadata.downloadURLs[0];
+    });
+  } else {
+    imgElement.src = imageUri;
+  }
 };
+
 
 // Saves a new message containing an image URI in Firebase.
 // This first saves the image in Firebase storage.
@@ -148,7 +146,7 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
 	this.messagesRef.push({
 		name: currentUser.displayName,
 		imageUrl: FriendlyChat.LOADING_IMAGE_URL,
-		photoUrl: currentUser.photoURL || '/images/profiles_placeholder.png'
+		photoUrl: currentUser.photoURL || '/images/profile_placeholder.png'
 	}).then(function(data) {
 		
 		// upload the image to the cloud storage.
