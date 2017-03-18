@@ -148,7 +148,7 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
 	this.messagesRef.push({
 		name: currentUser.displayName,
 		imageUrl: FriendlyChat.LOADING_IMAGE_URL,
-		photoUrl: currentUser.photoURL || 'images/profiles_placeholder.png'
+		photoUrl: currentUser.photoURL || '/images/profiles_placeholder.png'
 	}).then(function(data) {
 		
 		// upload the image to the cloud storage.
